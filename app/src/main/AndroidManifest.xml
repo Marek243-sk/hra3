@@ -13,7 +13,7 @@
         android:theme="@style/Base.Theme.Hra3"
         tools:targetApi="31">
         <activity
-            android:name=".LevelSelection"
+            android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -21,30 +21,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".EasyLevelActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".Normal"
-            android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".Hard"
-            android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
         </activity>
 
         <activity
