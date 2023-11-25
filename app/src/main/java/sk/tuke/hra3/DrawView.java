@@ -22,7 +22,7 @@ public class DrawView extends View {
 
     Context context;
     float ballX, ballY;
-    Velocity velocity = new Velocity(25, 32);
+    Velocity velocity = new Velocity(30, 37);
     Handler handler;
     final long UPDATE_MILLS = 30;
     Runnable runnable;
@@ -39,7 +39,7 @@ public class DrawView extends View {
     int ballWidth, ballHeight;
     MediaPlayer mpHit, mpMiss;
     Random random;
-    Brick[] bricks = new Brick[30];
+    Brick[] bricks = new Brick[40];
     int numBricks = 0;
     int brokenBricks = 0;
     boolean gameOver = false;
@@ -67,7 +67,7 @@ public class DrawView extends View {
         textPaint.setTextSize(TEXT_SIZE);
         textPaint.setTextAlign(Paint.Align.LEFT);
         healthPaint.setColor(Color.GREEN);
-        brickPaint.setColor(Color.argb(255, 91, 55, 235));
+        brickPaint.setColor(Color.argb(255, 249, 112, 42));
 
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
 
@@ -96,7 +96,7 @@ public class DrawView extends View {
         int brickHeight = dHeight / 16;
 
         for (int column = 0; column < 8; column++) {
-            for (int row = 0; row < 3; row++) {
+            for (int row = 0; row < 4; row++) {
                 bricks[numBricks] = new Brick(row, column,brickWidth, brickHeight);
                 numBricks++;
             }
@@ -158,24 +158,27 @@ public class DrawView extends View {
                 healthPaint.setColor(Color.RED);
             }
             canvas.drawRect(dWidth - 200, 30, dWidth - 200 + 60 + life, 80, healthPaint);
-            for (int i = 0; i < numBricks; i++) {
-                if (bricks[i].getVisibility()) {
-                    if (ballX + ballWidth >= bricks[i].column + bricks[i].width && ballX <= bricks[i].column
-                    * bricks[i].width + bricks[i].width && ballY <= bricks[i].row * bricks[i].height + bricks[i].height
-                    && ballY >= bricks[i].row * bricks[i].height) {
-                        velocity.setY((velocity.getY() + 1) * -1);
-                        bricks[i].setInvisible();
-                        points += 10;
-                        brokenBricks++;
+        for (int i = 0; i < numBricks; i++) {
+            if (bricks[i].getVisibility()) {
+                if (ballX + ballWidth >= bricks[i].column * bricks[i].width
+                        && ballX <= bricks[i].column * bricks[i].width + bricks[i].width
+                        && ballY <= bricks[i].row * bricks[i].height + bricks[i].height
+                        && ballY >= bricks[i].row * bricks[i].height) {
 
-                        if (brokenBricks == 24) {
-                            launchGameOver();
-                        }
+                    velocity.setY((velocity.getY() + 1) * -1);
+                    bricks[i].setInvisible();
+                    points += 10;
+                    brokenBricks++;
+
+                    if (brokenBricks == 32) {
+                        launchGameOver();
                     }
                 }
             }
+        }
 
-            if (brokenBricks == numBricks) {
+
+        if (brokenBricks == numBricks) {
                 gameOver = true;
             }
             if (!gameOver) {
@@ -229,15 +232,15 @@ public class DrawView extends View {
 
         handler.removeCallbacksAndMessages(null);
         Intent intent = new Intent(context, GameOver.class);
-        intent.putExtra("Points: ", points);
+        intent.putExtra("Points", points);
         context.startActivity(intent);
         ((Activity) context).finish();
     }
 
     private int xVelocity() {
 
-        int[] values = {-35, -30, -25, 25, 30, 35};
-        int index = random.nextInt(6);
+        int[] values = {-50, -30, -20, -15, 5, 5, 15, 20, 30, 50};
+        int index = random.nextInt(10);
         return values[index];
     }
 }

@@ -10,23 +10,29 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
+
 public class GameOver extends AppCompatActivity {
 
     TextView pointsTV;
     ImageView trophy;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_over_activity);
         trophy = findViewById(R.id.trophyImg);
         pointsTV = findViewById(R.id.pointsTV);
-        int points = getIntent().getExtras().getInt("points");
-        if (points == 240) {
+
+        int points = getIntent().getIntExtra("Points", 0);
+        pointsTV.setText("Points: " + points);
+
+        if (points == 320) {
             trophy.setVisibility(View.VISIBLE);
+        } else {
+            trophy.setVisibility(View.INVISIBLE);
         }
-        pointsTV.setText("" + points);
     }
 
     public  void restart(View view) {
