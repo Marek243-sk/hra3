@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.Random;
 
@@ -36,7 +37,7 @@ public class DrawView extends View {
     Bitmap ball, paddle;
     int dWidth, dHeight;
     int ballWidth, ballHeight;
-    MediaPlayer mpHit, mpMiss, mpBreak;
+    MediaPlayer mpHit, mpMiss;
     Random random;
     Brick[] bricks = new Brick[30];
     int numBricks = 0;
@@ -61,13 +62,12 @@ public class DrawView extends View {
 
         mpHit = MediaPlayer.create(context, R.raw.hit);
         mpMiss = MediaPlayer.create(context, R.raw.miss);
-        mpBreak = MediaPlayer.create(context, R.raw.breaking);
 
         textPaint.setColor(Color.RED);
         textPaint.setTextSize(TEXT_SIZE);
         textPaint.setTextAlign(Paint.Align.LEFT);
         healthPaint.setColor(Color.GREEN);
-        brickPaint.setColor(Color.argb(255, 249, 129, 0));
+        brickPaint.setColor(Color.argb(255, 91, 55, 235));
 
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
 
@@ -163,9 +163,6 @@ public class DrawView extends View {
                     if (ballX + ballWidth >= bricks[i].column + bricks[i].width && ballX <= bricks[i].column
                     * bricks[i].width + bricks[i].width && ballY <= bricks[i].row * bricks[i].height + bricks[i].height
                     && ballY >= bricks[i].row * bricks[i].height) {
-                        if (mpBreak != null) {
-                            mpBreak.start();
-                        }
                         velocity.setY((velocity.getY() + 1) * -1);
                         bricks[i].setInvisible();
                         points += 10;
@@ -184,6 +181,8 @@ public class DrawView extends View {
             if (!gameOver) {
                 handler.postDelayed(runnable, UPDATE_MILLS);
             }
+
+
         }
 
     @Override
@@ -210,6 +209,20 @@ public class DrawView extends View {
             }
         }
         return true;
+    }
+
+    public boolean isIntersecting(float x, float y) {
+        ImageButton playBtn = ((Activity) context).findViewById(R.id.playBtn);
+
+        int[] location = new int[2];
+        playBtn.getLocationOnScreen(location);
+
+        int btnX = location[0];
+        int btnY = location[1];
+        int btnWidth = playBtn.getWidth();
+        int btnHeight = playBtn.getHeight();
+
+        return x >= btnX && x <= btnX + btnWidth && y >= btnY && y <= btnY + btnHeight;
     }
 
     private void launchGameOver() {
