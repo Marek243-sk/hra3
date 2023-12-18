@@ -9,11 +9,11 @@
     android:background="@drawable/bg">
 
     <ImageButton
+        android:id="@+id/playBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
-        android:id="@+id/playBtn"
         android:background="@drawable/play"
-        android:onClick="startGame"/>
+        android:onClick="startGame" />
 
 </LinearLayout>
