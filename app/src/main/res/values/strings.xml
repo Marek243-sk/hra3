@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">hra3</string>
+    <string name="sk_re">Skóre</string>
+    <string name="za_a_hru">Začať hru</string>
 </resources>
