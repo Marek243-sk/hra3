@@ -15,7 +15,7 @@
         <activity
             android:name=".First"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,8 +31,14 @@
         <activity
             android:name=".GameOver"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
         </activity>
+
+        <activity
+            android:name=".Database"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>
