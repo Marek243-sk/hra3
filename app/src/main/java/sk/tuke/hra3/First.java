@@ -1,12 +1,12 @@
 package sk.tuke.hra3;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class First extends AppCompatActivity {
@@ -19,16 +19,18 @@ public class First extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        Button buttonEasy = findViewById(R.id.firstBtn);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button playButton = findViewById(R.id.playButton);
 
-        buttonEasy.setOnClickListener(v -> {
-            startActivity(new Intent(First.this, MainActivity.class));
-            finish();
+        playButton.setOnClickListener(v -> {
+            Intent intent = new Intent(First.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button scoreButton = findViewById(R.id.scoreButton);
+
+        scoreButton.setOnClickListener(v -> {
+            Intent intent = new Intent(First.this, Database.class);
+            startActivity(intent);
         });
     }
-
-    /*public boolean isIntersecting(float x, float y) {
-
-
-    }*/
 }

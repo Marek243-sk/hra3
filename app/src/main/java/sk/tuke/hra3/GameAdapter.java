@@ -30,7 +30,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameViewHolder> {
     public void onBindViewHolder(@NonNull GameViewHolder gameViewHolder, int g) {
         Game currentGame = gameList.get(g);
         gameViewHolder.date.setText(currentGame.getDate());
-        gameViewHolder.score.setText(currentGame.getScore());
+        gameViewHolder.score.setText(String.valueOf(currentGame.getScore()));
     }
 
     @Override
